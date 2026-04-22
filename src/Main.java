@@ -24,13 +24,14 @@ public class Main {
     * и ги добавете в списък
     * */
 
-    Laptop laptop1 = new Laptop(
-            "Lenovo",
-            "ThinkPad X1 Carbon Gen 12",
-            4299,
-            14.0,
-            new ComputerSpecs("Intel Core Ultra 7 155U", 32, 1000, "SSD", "Windows 11 Pro")
-    );
+
+        Laptop laptop1 = new Laptop(
+                "HP",
+                "Spectre x360 14",
+                399,
+                14.0,
+                new ComputerSpecs("Intel Core Ultra 7 155H", 8, 1000, "HardDrive", "Windows 11 Home")
+        );
 
     Laptop laptop2 = new Laptop(
             "Apple",
@@ -56,13 +57,14 @@ public class Main {
             new ComputerSpecs("AMD Ryzen 9 8945HS", 32, 1000, "SSD", "Windows 11 Home")
     );
 
-    Laptop laptop5 = new Laptop(
-            "HP",
-            "Spectre x360 14",
-            399,
-            14.0,
-            new ComputerSpecs("Intel Core Ultra 7 155H", 16, 1000, "SSD", "Windows 11 Home")
-    );
+        Laptop laptop5 = new Laptop(
+                "Lenovo",
+                "ThinkPad X1 Carbon Gen 12",
+                4299,
+                14.0,
+                new ComputerSpecs("Intel Core Ultra 7 155U", 32, 1000, "SSD", "Windows 11 Pro")
+        );
+
 
     ArrayList<Laptop> laptops = new ArrayList<>();
     laptops.add(laptop1);
@@ -78,5 +80,36 @@ public class Main {
         }
     }
 
+    /*
+    * Да се създаде метод calculateDiscount, който да изчислява отстъпката
+    * на лаптоп по следния начин:
+    * - ако латопа е марка HP 5%
+    * - ако лаптопа е с RAM памет под 16GB 10%
+    * - ако лаптопа използва HardDisk (а не SSD) 15%
+    *
+    * метода да втъща общата отстъпка (ако отговаря на всички критерии - тя е 30%)
+    * */
+        int l1Discount = calculateDiscount(laptop1);
+        int totalPrice = (int) (laptop1.getPrice() - (laptop1.getPrice() * (l1Discount/100.0)));
+        System.out.println("\nPrice of laptop1: " + laptop1.getPrice() + " euro");
+        System.out.println("Discount of laptop1: " + l1Discount + " %");
+        System.out.println("Total price of laptop1: " + totalPrice + " euro");
 
-}}
+}
+private static int calculateDiscount(Laptop l){
+      int discount = 0;
+      if (l.getBrand().equalsIgnoreCase("HP")){
+          discount += 5;
+      }
+      if (l.getSpecs().getRam() < 16){
+          discount += 10;
+      }
+      if (l.getSpecs().getSecondaryMemoryType().equalsIgnoreCase("HardDrive")){
+          discount += 15;
+      }
+      return discount;
+}
+
+
+
+}
